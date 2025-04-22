@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vault</title>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      background-color: #f7f7f7;
+      padding: 2rem;
+      border-radius: 10px;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    form {
+      margin-bottom: 1rem;
+    }
+
+    input {
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: white;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .credentials {
+      flex-grow: 1;
+    }
+
+    .logout {
+      display: block;
+      margin-top: 2rem;
+      color: #0077cc;
+      text-align: right;
+      text-decoration: none;
+    }
+
+    .logout:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>🔐 Vault</h2>
+
+  <form method="POST" action="/vault/add">
+    <input name="name" placeholder="Servicio" required />
+    <input name="username" placeholder="Usuario" required />
+    <input name="password" placeholder="Contraseña" required />
+    <button type="submit">Agregar</button>
+  </form>
+
+  <ul>
+    <% credentials.forEach(c => { %>
+      <li>
+        <div class="credentials">
+          <strong><%= c.name %></strong> — <%= c.username %> — <%= c.password %>
+        </div>
+        <form method="POST" action="/vault/delete/<%= c.id %>">
+          <button type="submit">Eliminar</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+
+  <a class="logout" href="/logout">Cerrar sesión</a>
+</body>
+</html>
