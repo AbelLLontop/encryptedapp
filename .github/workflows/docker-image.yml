@@ -28,8 +28,10 @@ jobs:
     - name: Build Docker Image
       run: |
         docker build -t abelitolll/encrypted-app:0.0.2 .
+         docker build -t abelitolll/encrypted-app:latest .
 
     - name: Push Docker Image
       run: |
         docker push abelitolll/encrypted-app:0.0.2
+        docker push abelitolll/encrypted-app:latest
         
