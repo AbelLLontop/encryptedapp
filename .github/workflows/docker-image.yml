@@ -35,14 +35,18 @@ jobs:
         docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
         echo "New version: $NEW_VERSION!!!"
         
-    # - name: Build Docker Image
-    #   run: |
-    #     docker build -t abelitolll/encrypted-app:0.0.2 .
-    #      docker build -t abelitolll/encrypted-app:latest .
+    - name: Build Docker Image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker build -t abelitolll/encrypted-app:$NEW_VERSION .
+         docker build -t abelitolll/encrypted-app:latest .
 
-    # - name: Push Docker Image
-    #   run: |
-    #     docker push abelitolll/encrypted-app:0.0.2
-    #     docker push abelitolll/encrypted-app:latest
+    - name: Push Docker Image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker push abelitolll/encrypted-app:$NEW_VERSION
+        docker push abelitolll/encrypted-app:latest
     
         
